@@ -47,27 +47,34 @@ The percentage should have 2 decimal digits
 """
 
 
-#Part A Solution
-
+# Part A Solution
 area_codes = set()
 for call in calls:
-    if call[0].split(")")[0] == '(080':
-       if call[1].startswith('140'):
-         area_codes.add('140')
-       elif call[1].startswith("("):
-         area_codes.add("{}{}".format(call[1].split(")")[0],")"))
-       else: 
-          area_codes.add(call[1].split()[0])
+    if call[0].startswith("(080)"):
+        if call[1].startswith('140'):
+            area_codes.add('140')
+        elif call[1].startswith("("):
+            area_codes.add("{}{}".format(call[1].split(")")[0], ")"))
+        else:
+            area_codes.add(call[1].split()[0])
     else:
-      continue
+        continue
 
 area_codes_list = list(area_codes)
 area_codes_list.sort()
-print(*area_codes_list,sep='\n')
+print(*area_codes_list, sep='\n')
 
 
+# Part B Solution
+call_count_from_bglr = 0
+call_count_to_bglr = 0
+for call in calls:
+    if call[0].startswith("(080)"):
+        call_count_from_bglr += 1
+        if call[1].startswith("(080)"):
+            call_count_to_bglr += 1
+    else:
+        continue
 
-#Part B Solution
-
-
-
+percentage = call_count_to_bglr / call_count_from_bglr * 100
+print("{:.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.".format(percentage))
