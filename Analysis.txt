@@ -1,0 +1,118 @@
+1. Task0
+
+    a. The Task is accessing elements of the list using their indices.
+    b. Internally list in python is represented as Array any accessing an elements with indices takes a constant amount of time.
+    c. So time complexity fot task0 is O(1)
+
+    --------------------------Time complexity------------------------------------
+     Worst cast Time complexity = O(1)
+
+2. Task1: 
+
+    telephone_numbers = set() // 1 Unit
+    for text in texts: //n times
+        telephone_numbers.add('{}'.format(text[0])) // 1 Unit
+        telephone_numbers.add('{}'.format(text[1])) // 1 Unit
+
+    for call in calls: //m times
+        telephone_numbers.add('{}'.format(call[0])) // 1 Unit
+        telephone_numbers.add('{}'.format(call[1])) // 1 Unit
+    print("There are {} different telephone numbers in the records.".format(len(telephone_numbers))) // 1 Unit
+
+    ---------------------------Time complexity------------------------------------
+    Totatl Time = 1 + 2n + 2m + 1 , lets assume 'n' as number of texts and 'm' as number of calls.
+    Worst cast Time complexity = O(n + m)
+
+
+3. Task2: 
+
+    telephone_duration = {} // 1 Unit
+    for call in calls: // n times
+        for i in range(2): // 2 times
+            if telephone_duration.get(call[i]) == None:
+                telephone_duration[call[i]] = int(call[3]) //1 Unit
+            else:
+                telephone_duration[call[i]] += int(call[3]) // 1 Unit
+                
+    result = max(telephone_duration.items(),key = lambda x: x[1]) // O(n) - as it has to iterate through dictionary
+
+    print("{0} spent the longest time, {1} seconds, on the phone during September 2016.".format(result[0],result[1])) // 1 Unit
+
+    ---------------------------Time complexity------------------------------------
+    Totatl Time = 1 + 2n + n + 1 , lets assume 'n' as number of calls.
+    Worst cast Time complexity = O(n)
+
+
+4. Task3: 
+    # Part A Solution
+    area_codes = set() // 1 Unit
+    for call in calls: // n times - Assume n as number of call records
+        if call[0].startswith("(080)"): //Assume as 1 Unit
+            if call[1].startswith('140'):
+                area_codes.add('140')
+            elif call[1].startswith("("):
+                area_codes.add("{}{}".format(call[1].split(")")[0], ")"))
+            else:
+                area_codes.add(call[1].split()[0])
+        else:
+            continue
+
+    area_codes_list = list(area_codes) // m units as iteration needed - m as size of list
+    area_codes_list.sort() // worst case by best algo takes O(mlogm)
+    print(*area_codes_list, sep='\n') // 1 Unit
+
+
+    # Part B Solution
+    call_count_from_bglr = 0
+    call_count_to_bglr = 0
+    for call in calls: // n times - Assume n as number of call records
+        if call[0].startswith("(080)"): // 1 Unit
+            call_count_from_bglr += 1
+            if call[1].startswith("(080)"):
+                call_count_to_bglr += 1
+        else:
+            continue
+
+    percentage = call_count_to_bglr / call_count_from_bglr * 100 // 1 Unit
+    print("{:.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.".format(percentage)) // 1 Unit
+
+
+    ---------------------------Time complexity------------------------------------
+    Totatl Time = nk + m + mlogm + nk + k , lets assume 'n' as number of calls and 'm' as number of calls with code (080) and 'k' as constant work
+    Worst cast Time complexity = O(n + mlogm)
+
+
+
+
+4. Task4: 
+ 
+    - Assume k as constant
+
+    outgoing_calls = set() // k unit
+    incomming_calls = set() // k unit
+    outgoing_texts = set() // k unit
+    incomming_texts = set() // k unit
+
+    for call in calls: // n times - Assume number of call records as n
+        outgoing_calls.add('{}'.format(call[0])) 
+        incomming_calls.add('{}'.format(call[1]))
+
+    for text in texts: // m times - Assume number of text records as n
+        outgoing_texts.add('{}'.format(text[0]))
+        incomming_texts.add('{}'.format(text[1]))
+
+    # A-B All the elements of A which are not in B
+    # outgoing_calls - (incomming_calls U outgoing_texts U incomming_texts)
+    telemarketers = outgoing_calls.difference(
+        incomming_calls.union(outgoing_texts.union(incomming_texts))) // O(outgoing_calls) == O(n)
+
+    print("These numbers could be telemarketers: ")
+    print(*list(telemarketers), sep='\n') // O(p) - p -> no. of telemarketers
+
+
+
+    ---------------------------Time complexity------------------------------------
+    Totatl Time = 4k + 2n + 2m + n + p , lets assume 'n' as number of calls and 'm' as number of texts and 'k' as constant work
+    Worst cast Time complexity = O(n + m)
+
+
