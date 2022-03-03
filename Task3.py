@@ -56,7 +56,7 @@ for call in calls:
         elif call[1].startswith("("):
             area_codes.add("{}{}".format(call[1].split(")")[0], ")"))
         else:
-            area_codes.add(call[1].split()[0])
+            area_codes.add(call[1].split()[0][0:4])
     else:
         continue
 

@@ -43,5 +43,8 @@ for text in texts:
 telemarketers = outgoing_calls.difference(
     incomming_calls.union(outgoing_texts.union(incomming_texts)))
 
+sorted_telemarketers = list(telemarketers)
+sorted_telemarketers.sort()
+
 print("These numbers could be telemarketers: ")
-print(*list(telemarketers), sep='\n')
+print(*list(sorted_telemarketers), sep='\n')

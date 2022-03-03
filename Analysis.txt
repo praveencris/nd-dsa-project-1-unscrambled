@@ -106,13 +106,16 @@
     telemarketers = outgoing_calls.difference(
         incomming_calls.union(outgoing_texts.union(incomming_texts))) // O(outgoing_calls) == O(n)
 
-    print("These numbers could be telemarketers: ")
-    print(*list(telemarketers), sep='\n') // O(p) - p -> no. of telemarketers
+        sorted_telemarketers = list(telemarketers) // O(p) - p -> no. of telemarketers
+        sorted_telemarketers.sort() // O(plogp) for sorting
+        
+        print("These numbers could be telemarketers: ")
+        print(*list(sorted_telemarketers), sep='\n') // O(p) - p -> no. of telemarketers
 
 
 
     ---------------------------Time complexity------------------------------------
-    Totatl Time = 4k + 2n + 2m + n + p , lets assume 'n' as number of calls and 'm' as number of texts and 'k' as constant work
-    Worst cast Time complexity = O(n + m)
+    Totatl Time = 4k + 2n + 2m + n + p + plogp +p , lets assume 'n' as number of calls and 'm' as number of texts and 'k' as constant work, p as no. of telemarketers
+    Worst cast Time complexity = O(n + m + plogp)
 
 
