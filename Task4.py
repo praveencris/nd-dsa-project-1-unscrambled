@@ -25,3 +25,23 @@ Print a message:
 The list of numbers should be print out one per line in lexicographic order with no duplicates.
 """
 
+outgoing_calls = set()
+incomming_calls = set()
+outgoing_texts = set()
+incomming_texts = set()
+
+for call in calls:
+    outgoing_calls.add('{}'.format(call[0]))
+    incomming_calls.add('{}'.format(call[1]))
+
+for text in texts:
+    outgoing_texts.add('{}'.format(text[0]))
+    incomming_texts.add('{}'.format(text[1]))
+
+# A-B All the elements of A which are not in B
+# outgoing_calls - (incomming_calls U outgoing_texts U incomming_texts)
+telemarketers = outgoing_calls.difference(
+    incomming_calls.union(outgoing_texts.union(incomming_texts)))
+
+print("These numbers could be telemarketers: ")
+print(*list(telemarketers), sep='\n')
